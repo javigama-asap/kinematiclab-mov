@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{15A39D96-55CA-4EE0-ADA5-7C875E4AFB8B}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{c9e5eea5-ca05-42a1-839b-61506e0a37df}</TemplateGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>kinematiclabs.Droid</RootNamespace>
+    <AssemblyName>kinematiclabmov.Android</AssemblyName>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+<AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
+    <PackageReference Include="ksemenenko.GoogleAnalytics">
+      <Version>1.0.3.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashActivity.cs" />
+    <Compile Include="CustomPickerRenderer.cs" />
+    <Compile Include="VideoPlayerRenderer.cs" />
+    <Compile Include="PositionSliderRenderer.cs" />
+    <Compile Include="CustomEntryRenderer.cs" />
+    <Compile Include="IconButtonRenderer.cs" />
+    <Compile Include="MainApplication.cs" />
+    <Compile Include="CustomDatePickerRenderer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Tabbar.axml" />
+    <AndroidResource Include="Resources\layout\Toolbar.axml" />
+    <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\icon.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\icon_round.xml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\Icon.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\Icon.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\Icon.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\Icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\drawable\splash.xml" />
+    <AndroidResource Include="Resources\drawable\puntos_eje.png" />
+    <AndroidResource Include="Resources\drawable\puntos_inicio.png" />
+    <AndroidResource Include="Resources\drawable\puntos_intermedios.png" />
+    <AndroidResource Include="Resources\drawable\logoK.png" />
+    <AndroidResource Include="Resources\drawable\back_cuadro.png" />
+    <AndroidResource Include="Resources\drawable\back1.png" />
+    <AndroidResource Include="Resources\drawable\back2.png" />
+    <AndroidResource Include="Resources\drawable\btnbig1.png" />
+    <AndroidResource Include="Resources\drawable\btnbig2.png" />
+    <AndroidResource Include="Resources\drawable\btnsmall1.png" />
+    <AndroidResource Include="Resources\drawable\btnsmall2.png" />
+    <AndroidResource Include="Resources\xml\file_paths.xml" />
+    <AndroidResource Include="Resources\raw\abducion_cadera.mp4" />
+    <AndroidResource Include="Resources\raw\abducion_hombro.mp4" />
+    <AndroidResource Include="Resources\raw\columna_cervical.mp4" />
+    <AndroidResource Include="Resources\raw\extension_cadera.mp4" />
+    <AndroidResource Include="Resources\raw\extension_codo.mp4" />
+    <AndroidResource Include="Resources\raw\extension_hombro.mp4" />
+    <AndroidResource Include="Resources\raw\extension_mcf.mp4" />
+    <AndroidResource Include="Resources\raw\extension_rodilla.mp4" />
+    <AndroidResource Include="Resources\raw\extension_tronco.mp4" />
+    <AndroidResource Include="Resources\raw\flexion_codo.mp4" />
+    <AndroidResource Include="Resources\raw\flexion_dorsal_tobillo.mp4" />
+    <AndroidResource Include="Resources\raw\flexion_hombro.mp4" />
+    <AndroidResource Include="Resources\raw\flexion_palmar_mcf.mp4" />
+    <AndroidResource Include="Resources\raw\flexion_palmar_muneca.mp4" />
+    <AndroidResource Include="Resources\raw\flexion_plantar_tobillo.mp4" />
+    <AndroidResource Include="Resources\raw\flexion_rodilla_extendida.mp4" />
+    <AndroidResource Include="Resources\raw\flexion_rodilla_flexionada.mp4" />
+    <AndroidResource Include="Resources\raw\flexion_rodilla.mp4" />
+    <AndroidResource Include="Resources\raw\flexion_tronco.mp4" />
+    <AndroidResource Include="Resources\raw\rotacion_cadera.mp4" />
+    <AndroidResource Include="Resources\raw\rotacion_externa_hombro.mp4" />
+    <AndroidResource Include="Resources\raw\sit_stand_up.mp4" />
+    <AndroidResource Include="Resources\drawable\logoKsplash.png" />
+    <AndroidResource Include="Resources\raw\extension_muneca.mp4" />
+    <AndroidResource Include="Resources\drawable\iconoK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\drawable\" />
+    <Folder Include="Resources\drawable-hdpi\" />
+    <Folder Include="Resources\drawable-xhdpi\" />
+    <Folder Include="Resources\drawable-xxhdpi\" />
+    <Folder Include="Resources\drawable-xxxhdpi\" />
+    <Folder Include="Resources\xml\" />
+    <Folder Include="Resources\raw\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\kinematiclabs\kinematiclabs.csproj">
+      <Project>{968AC941-B9C4-4187-AC28-5FA2BC90A417}</Project>
+      <Name>kinematiclabs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\FontAwesome.otf" />
+  </ItemGroup>
+ <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+</Project>

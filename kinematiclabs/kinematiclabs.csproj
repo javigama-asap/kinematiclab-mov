@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="SkiaSharp" Version="1.60.3" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.60.3" />
+    <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
+    <PackageReference Include="OxyPlot.Xamarin.Forms" Version="1.0.0" />
+    <PackageReference Include="ksemenenko.GoogleAnalytics" Version="1.0.3.2" />
+    <PackageReference Include="Xamarin.Auth" Version="1.6.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes\" />
+    <Folder Include="Layouts\" />
+    <Folder Include="Layouts\Auth\" />
+    <Folder Include="Functions\" />
+    <Folder Include="Layouts\Common\" />
+    <Folder Include="CustomRenderers\" />
+    <Folder Include="VideoLibrary\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Layouts\Auth\Conditions.xaml" />
+    <None Include="Layouts\Auth\CreateNewPassword.xaml" />
+    <None Include="Layouts\Auth\Login.xaml" />
+    <None Include="Layouts\Auth\Register.xaml" />
+    <None Include="Layouts\Auth\ResetPassword.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Classes\Point.cs" />
+    <Compile Remove="Classes\Test.cs" />
+    <Compile Remove="Classes\TypeTest.cs" />
+    <Compile Remove="Layouts\Common\FellowsList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="MainPage.xaml" />
+  </ItemGroup>
+</Project>

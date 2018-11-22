@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:kinematiclabs"
+             x:Class="kinematiclabs.FellowEdit">
+    <Grid Padding="0">
+
+        <Image Aspect="Fill" Source="back2.png"/>
+        
+        <Grid VerticalOptions="FillAndExpand" RowSpacing="5" >
+            <Grid.Padding>
+                <OnPlatform x:TypeArguments ="Thickness">
+                    <On Platform="Android" Value="25,10,25,25"/>
+                    <On Platform="iOS" Value="25"/>
+                </OnPlatform>
+            </Grid.Padding>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="55" />
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0" HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Column="0" Text="&#xf053;" Style="{StaticResource userMenuBtn}" Clicked="BackAction">
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="32"/>
+                            <On Platform="iOS" Value="40"/>
+                        </OnPlatform>
+                    </Button.FontSize>
+                </Button>
+                
+                <Label Grid.Column="1" TextColor="White" FontSize="24" FontAttributes="Bold" x:Name="TitleLabel" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"/>
+                
+                <Button Grid.Column="2" Text="&#xf015;" Style="{StaticResource userMenuBtn}" Clicked="HomeAction">
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="32"/>
+                            <On Platform="iOS" Value="40"/>
+                        </OnPlatform>
+                    </Button.FontSize>
+                </Button>
+            </Grid>
+
+            <Label TextColor="Black" Text="Nombre" Grid.Row="1" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                    
+            <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="2" HorizontalOptions="FillAndExpand" HasShadow="False">
+                <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <Entry x:Name="nameEntry" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                </Frame>
+            </Frame>
+
+            <Label TextColor="Black" Text="Apellidos" Grid.Row="3" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                    
+            <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="4" HorizontalOptions="FillAndExpand" HasShadow="False">
+                <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <Entry x:Name="lastnameEntry" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                </Frame>
+            </Frame>
+
+            <Label TextColor="Black" Text="Sexo" Grid.Row="5" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                    
+            <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="6" HorizontalOptions="FillAndExpand" HasShadow="False">
+                <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <local:CustomPicker x:Name="sexPicker" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                </Frame>
+            </Frame>
+
+            <Label TextColor="Black" Text="Fecha de nacimiento" Grid.Row="7" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                    
+            <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="8" HorizontalOptions="FillAndExpand" HasShadow="False">
+                <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <DatePicker x:Name="birthdatePicker" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
+                        <DatePicker.Format>d/M/yyyy</DatePicker.Format>
+                    </DatePicker>
+                </Frame>
+            </Frame>
+                                
+            <Grid BackgroundColor="Transparent" Grid.Row="10" HorizontalOptions="FillAndExpand">
+                <Image Source="btnbig1.png" Aspect="Fill"/>
+                <Button Clicked="SaveAction" Style="{StaticResource typeoneButton}" x:Name="saveBtn"/>
+            </Grid>
+
+        </Grid>     
+    </Grid>
+</ContentPage>

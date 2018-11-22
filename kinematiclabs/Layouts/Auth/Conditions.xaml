@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="kinematiclabs.Conditions"
+  xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+    
+    
+        <Button Text="x" TextColor="Black" FontSize="18" Clicked="DismissPopup" BackgroundColor="Transparent" WidthRequest="40" HeightRequest="40"
+                            Grid.Row="1" HorizontalOptions="End" />
+        <ScrollView  VerticalOptions="FillAndExpand" Grid.Row="2" >
+            <Grid Padding="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="4" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="12" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="12" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <Label Grid.Row="0" Text="De acuerdo con lo establecido en el Reglamento General de Protección de Datos, le informamos que trataremos sus datos personales con la finalidad de:"/>
+                <Label Grid.Row="2" Text="Prestarle el servicio o producto contratado, e informarle sobre los productos o servicios publicados en nuestra web o aplicación móvil."/>
+                <Label Grid.Row="4" Text="Asimismo, le informamos de la posibilidad de ejercer los siguientes derechos sobre sus datos personales: derecho de acceso, rectificación, supresión u olvido, limitación, oposición, portabilidad y a retirar el consentimiento prestado."/>
+                <Label Grid.Row="6" Text="Los datos personales proporcionados se conservarán, mientras se mantenga la relación mercantil, no se solicite su supresión por el interesado, o durante 1 año a partir de la última confirmación de interés, o durante el tiempo necesario para cumplir con las obligaciones legales. La empresa NO tomará decisiones automatizadas. Los datos no se cederán a terceros salvo en los casos en que exista una obligación legal y los trataremos en base a su consentimiento."/>
+                <Label Grid.Row="8">
+                  <Label.FormattedText>
+                    <FormattedString>
+                      <Span Text="Asimismo, le informamos de la posibilidad de ejercer los siguientes derechos sobre sus datos personales: derecho de acceso, rectificación, supresión u olvido, limitación, oposición, portabilidad y a retirar el consentimiento prestado, para ello podrá enviar un email a: "></Span>
+                      <Span Text="ignacio.lopez@kinematiclab.org" FontAttributes="Italic,Bold" TextColor="#3566c9"></Span> 
+                    </FormattedString>
+                  </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="10" Text="Además, el interesado puede dirigirse a la Autoridad de Control en materia de Protección de Datos competente para obtener información adicional o presentar una reclamación." FontAttributes="Bold"/>
+                <Label Grid.Row="12" Text="Datos identificativos del responsable:"/>
+                <Label Grid.Row="14" Text="IGNACIO LÓPEZ MORANCHEL, C/ Río Guadiana, 11 de Móstoles 28935 (Madrid), Teléfono 606833242"/>
+                <Label Grid.Row="16" Text="CONSENTIMIENTO"/>
+                <Label Grid.Row="18" Text="La finalidad y uso previsto tanto de los datos en sí mismos como de su tratamiento, es prestarle el servicio solicitado. A continuación, podrá aceptar las finalidades que crea convenientes marcando su casilla correspondiente y clicando en el botón ACEPTAR, tenga en cuenta que algunas finalidades pueden ser necesarias para poderle prestar el servicio, en el caso de NO marcar dichas casillas, no se podrá prestar/entregar el servicio/producto asociado."/>
+            </Grid>
+            
+        </ScrollView>
+        
+        <Button Clicked="DismissPopup" BackgroundColor="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+    </Grid>
+        
+</ContentPage>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="kinematiclabs.FellowsList">
+    <Grid Padding="0">
+
+        <Image Aspect="Fill" Source="back2.png"/>
+        
+        <Grid VerticalOptions="FillAndExpand">
+            <Grid.RowSpacing>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="Android" Value="5"/>
+                    <On Platform="iOS" Value="15"/>
+                </OnPlatform>
+            </Grid.RowSpacing>
+            <Grid.Padding>
+                <OnPlatform x:TypeArguments ="Thickness">
+                    <On Platform="Android" Value="25,10,25,25"/>
+                    <On Platform="iOS" Value="25"/>
+                </OnPlatform>
+            </Grid.Padding>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="1" />
+
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0" HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Column="0" Text="&#xf053;" Style="{StaticResource userMenuBtn}" Clicked="backAction">
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="32"/>
+                            <On Platform="iOS" Value="40"/>
+                        </OnPlatform>
+                    </Button.FontSize>
+                </Button>
+                
+                <Label Grid.Column="1" Text="Listado de Sujetos" TextColor="White" FontAttributes="Bold" x:Name="TitleLabel" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center">
+                    <Label.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="20"/>
+                            <On Platform="iOS" Value="24"/>
+                        </OnPlatform>
+                    </Label.FontSize>
+                </Label>
+                
+                <Button Grid.Column="2" Text="&#xf015;" Style="{StaticResource userMenuBtn}" Clicked="homeAction">
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="32"/>
+                            <On Platform="iOS" Value="40"/>
+                        </OnPlatform>
+                    </Button.FontSize>
+                </Button>
+            </Grid>
+
+            <SearchBar Placeholder="" Grid.Row="1" TextChanged="SearchOnApp" x:Name="searchBar" BackgroundColor="White" HorizontalOptions="FillAndExpand"/>
+           
+            <ListView x:Name="FellowsListView"  ItemTapped="OpenTarget" RowHeight="75" Grid.Row="2" BackgroundColor="Transparent" SeparatorColor="Transparent" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell >
+                            <Grid BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" Padding="0,10,0,10">
+                                <Image Source="btnbig2.png" Aspect="Fill"/>
+                                <Label HorizontalOptions="FillAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding FullName}" TextColor="White" FontSize="22" FontAttributes="Bold"/>
+                            </Grid>
+                        </ViewCell> 
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                    
+            </ListView>
+            
+            <Label x:Name="NoResults" Grid.Row="3" Text="No hay sujetos disponibles" TextColor="White" HorizontalTextAlignment="Center"/>
+            
+        </Grid>
+        
+    </Grid>
+</ContentPage>

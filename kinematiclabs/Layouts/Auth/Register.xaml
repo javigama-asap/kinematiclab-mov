@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="kinematiclabs.Register">
+    <Grid Padding="0">
+
+        <Image Aspect="Fill" Source="back2.png"/>
+        
+        <ScrollView>
+            <Grid VerticalOptions="CenterAndExpand" Padding="25" RowSpacing="5" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="22" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="55" />
+                    <RowDefinition Height="55" />
+                </Grid.RowDefinitions>
+                    
+                <Image Aspect="AspectFit" Source="logoK.png" Grid.Row="0"/>
+
+                <Label TextColor="Black" Text="Registro de Usuario" Grid.Row="1" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="24" FontAttributes="Bold"/>
+
+                <BoxView Margin="0,10,0,10" Color="#009bcd" Grid.Row="2"  HorizontalOptions="FillAndExpand" />
+
+                <Label TextColor="Black" Text="* Nombre" Grid.Row="3" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                
+                <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="4" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand"  HasShadow="False">
+                        <Entry x:Name="nameEntry" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                    </Frame>
+                </Frame>
+
+                <Label TextColor="Black" Text="* Apellidos" Grid.Row="5" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                
+                <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="6" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand"  HasShadow="False">
+                        <Entry x:Name="lastnameEntry" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                    </Frame>
+                </Frame>
+
+                <Label TextColor="Black" Text="* Correo electrónico" Grid.Row="7" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                
+                <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="8" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand"  HasShadow="False">
+                        <Entry x:Name="emailEntry" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                    </Frame>
+                </Frame>
+
+                <Label TextColor="Black" Text="* Contraseña" Grid.Row="9" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                
+                <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="10" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand"  HasShadow="False">
+                        <Entry x:Name="passwordEntry" IsPassword="True" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                    </Frame>
+                </Frame>
+
+                <Label TextColor="Black" Text="* Confirmar contraseña" Grid.Row="11" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                
+                <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="12" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand"  HasShadow="False">
+                        <Entry x:Name="confirmpasswordEntry" IsPassword="True" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                    </Frame>
+                </Frame>
+
+                <Label TextColor="Black" Text="Localidad" Grid.Row="13" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                
+                <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="14" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand"  HasShadow="False">
+                        <Entry x:Name="cityEntry" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                    </Frame>
+                </Frame>
+
+                <Label TextColor="Black" Text="Código postal" Grid.Row="15" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                
+                <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="16" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand"  HasShadow="False">
+                        <Entry x:Name="cpEntry" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                    </Frame>
+                </Frame>
+
+                <Grid Grid.Row="17" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Switch x:Name="conditionsSwitch" HorizontalOptions="End" Grid.Column="0" VerticalOptions="Center"/>
+                    <Label x:Name="conditionsSwitchLabel" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                      <Label.FormattedText>
+                        <FormattedString>
+                          <Span Text="He leido y aceptado la "></Span>
+                          <Span Text="política de privacidad" FontAttributes="Bold" TextColor="#009bcd"></Span>
+                        </FormattedString>
+                      </Label.FormattedText>
+                    </Label>
+                </Grid>
+                
+                <Grid Grid.Row="18" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Switch x:Name="newsletterSwitch" HorizontalOptions="End" Grid.Column="0" VerticalOptions="Center"/>
+                    <Label x:Name="newsletterSwitchLabel" Text="Acepto recibir información comercial" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                      
+                    </Label>
+                </Grid>
+                
+                <Grid BackgroundColor="Transparent" Grid.Row="19" HorizontalOptions="FillAndExpand">
+                    <Image Source="btnbig1.png" Aspect="Fill"/>
+                    <Button Text="Aceptar" Clicked="SendAction" Style="{StaticResource typeoneButton}" x:Name="sendBtn"/>
+                </Grid>
+
+                <Grid BackgroundColor="Transparent" Grid.Row="20" HorizontalOptions="FillAndExpand">
+                    <Image Source="btnbig2.png" Aspect="Fill"/>
+                    <Button Text="Cancelar" Clicked="CancelAction" Style="{StaticResource typeoneButton}" x:Name="cancelBtn"/>
+                </Grid>
+     
+            </Grid>
+        </ScrollView>
+        
+    </Grid>
+    
+    
+</ContentPage>

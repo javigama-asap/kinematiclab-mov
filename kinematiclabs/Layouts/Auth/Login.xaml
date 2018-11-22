@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="kinematiclabs.Login">
+    <Grid Padding="0">
+
+        <Image Aspect="Fill" Source="back2.png"/>
+        
+        <ScrollView>
+            <Grid VerticalOptions="CenterAndExpand" RowSpacing="5" >
+                <Grid.Padding>
+                    <OnPlatform x:TypeArguments ="Thickness">
+                        <On Platform="Android" Value="25,10,25,10"/>
+                        <On Platform="iOS" Value="25,40,25,40"/>
+                    </OnPlatform>
+                </Grid.Padding>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <OnPlatform x:TypeArguments="GridLength">
+                                <On Platform="Android" Value="150"/>
+                                <On Platform="iOS" Value="180"/>
+                            </OnPlatform>
+                        </RowDefinition.Height>
+                    </RowDefinition>
+                    <RowDefinition Height="22" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="55" />
+                    <RowDefinition Height="55" />
+                    <RowDefinition Height="55" />
+                </Grid.RowDefinitions>
+                    
+                <Image Aspect="AspectFit" Source="logoK.png" Grid.Row="0"/>
+
+                <BoxView Margin="0,10,0,10" Color="#009bcd" Grid.Row="1"  HorizontalOptions="FillAndExpand" />
+
+                <Label TextColor="Black" Text="Correo electrónico" Grid.Row="2" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                
+                <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="3" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand"  HasShadow="False">
+                        <Entry x:Name="emailEntry" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                    </Frame>
+                </Frame>
+
+                <Label TextColor="Black" Text="Contraseña" Grid.Row="4" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                
+                <Frame Padding="1" BackgroundColor="#009bcd" Grid.Row="5" HorizontalOptions="FillAndExpand" HasShadow="False">
+                    <Frame Padding="0" BackgroundColor="White" HorizontalOptions="FillAndExpand"  HasShadow="False">
+                        <Entry x:Name="passwordEntry" IsPassword="True" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                    </Frame>
+                </Frame>
+
+                <Grid BackgroundColor="Transparent" Grid.Row="6" HorizontalOptions="FillAndExpand">
+                    <Image Source="btnbig1.png" Aspect="Fill"/>
+                    <Button Text="Entrar" Clicked="LoginUser" Style="{StaticResource typeoneButton}" x:Name="loginActionBtn"/>
+                </Grid>
+
+                <Grid BackgroundColor="Transparent" Grid.Row="7" HorizontalOptions="FillAndExpand">
+                    <Image Source="btnbig2.png" Aspect="Fill"/>
+                    <Button Text="Registrarme" Clicked="CreateAccount" Style="{StaticResource typeoneButton}" x:Name="registerActionBtn"/>
+                </Grid>
+                
+                <Grid BackgroundColor="Transparent" Grid.Row="8" HorizontalOptions="FillAndExpand">
+                    <Image Source="btnbig1.png" Aspect="Fill"/>
+                    <Button Text="¿Olvidaste tu contraseña?" Clicked="ResetPassword" Style="{StaticResource typeoneButton}" x:Name="forgotActionBtn"/>
+                </Grid>
+
+            </Grid>
+        </ScrollView>
+        
+    </Grid>
+
+</ContentPage>

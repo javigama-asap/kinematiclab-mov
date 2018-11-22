@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:kinematiclabs"
+             x:Class="kinematiclabs.VideoTest"
+             Title="Seleccionar puntos" BackgroundColor="Black">
+    <Grid x:Name="gridPadre" VerticalOptions="FillAndExpand" RowSpacing="0" BackgroundColor="White" >
+        <Grid.Padding>
+                <OnPlatform x:TypeArguments ="Thickness">
+                    <On Platform="Android" Value="0,5,0,5"/>
+                    <On Platform="iOS" Value="0,15,0,5"/>
+                </OnPlatform>
+            </Grid.Padding>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+                
+            <Button Grid.Column="0" Text="&#xf053;" Style="{StaticResource userMenuGrayBtn}" Clicked="BackAction">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="Android" Value="32"/>
+                        <On Platform="iOS" Value="40"/>
+                    </OnPlatform>
+                </Button.FontSize>
+            </Button>
+    
+            <Label Grid.Column="1" TextColor="White" FontSize="24" FontAttributes="Bold" x:Name="TitleLabel" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"/>
+                
+            <Button Grid.Column="2" Text="&#xf015;" Style="{StaticResource userMenuGrayBtn}" Clicked="HomeAction">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="Android" Value="32"/>
+                        <On Platform="iOS" Value="40"/>
+                    </OnPlatform>
+                </Button.FontSize>
+            </Button>
+        </Grid>
+        
+        <Grid Grid.Row="1" VerticalOptions="FillAndExpand" ColumnSpacing="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="accionLabel" HorizontalOptions="FillAndExpand" Grid.Column="0" TextColor="White" HorizontalTextAlignment="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+            <Button x:Name="addpositionsbtn" BorderRadius="0" BackgroundColor="#3a5fcd" Text="&#xf067;" FontSize="15" FontFamily="FontAwesome" Clicked="AddPoint" HorizontalOptions="FillAndExpand" Grid.Column="1" TextColor="White" VerticalOptions="FillAndExpand"/>
+        </Grid>
+
+        <RelativeLayout BackgroundColor="White" Padding="0" x:Name="rlposiciones" Grid.Row="2">
+            <local:VideoPlayer x:Name="videoPlayer" AutoPlay="False" AreTransportControlsEnabled="true"
+                           RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=0}"
+                           RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Constant=0}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.85}"/>
+
+            <ContentView
+                           RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=0}"
+                           RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Constant=0}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.85}"/>
+
+            <Grid x:Name="controlsGrid" RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=0}"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.85}"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.08}"
+                BindingContext="{x:Reference videoPlayer}" Padding="15,0,15,0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label Text="{Binding Path=Position, StringFormat='{0:ss\\:fff}'}" VerticalOptions="Center" HorizontalOptions="Start" TextColor="Black" Grid.Column="0"/>
+
+                <Button Text="&#xf04a;" FontSize="15" FontFamily="FontAwesome" VerticalOptions="Start" HorizontalOptions="Center" Clicked="PreviousClicked"
+                    BackgroundColor="Transparent" TextColor="Black" Grid.Column="1"/>
+                <Button Text="&#xf04b;" FontSize="15" FontFamily="FontAwesome" VerticalOptions="Start" HorizontalOptions="Center" Clicked="OnPlayPauseButtonClicked"
+                    BackgroundColor="Transparent" TextColor="Black" Grid.Column="2">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static local:VideoStatus.Playing}">
+                            <Setter Property="Text" Value="&#xf04c;" />
+                        </DataTrigger>
+
+                        <DataTrigger TargetType="Button"
+                                 Binding="{Binding Status}"
+                                 Value="{x:Static local:VideoStatus.NotReady}">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Text="&#xf04e;" FontSize="15" FontFamily="FontAwesome" VerticalOptions="Start" HorizontalOptions="End" Clicked="NextClicked"
+                    BackgroundColor="Transparent" TextColor="Black" Grid.Column="3"/>
+
+                <Label Text="{Binding Path=TimeToEnd, StringFormat='{0:ss\\:fff}'}" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black" Grid.Column="4"/>
+            </Grid>
+
+            <Grid Padding="20,0,20,0" RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=0}"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.93}"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.07}">
+                
+                <local:PositionSlider x:Name="positionSlider" BindingContext="{x:Reference videoPlayer}"
+                                      VerticalOptions="FillAndExpand" Duration="{Binding Duration}" Position="{Binding Position}">
+                    <local:PositionSlider.Triggers>
+                        <DataTrigger TargetType="local:PositionSlider"
+                             Binding="{Binding Status}"
+                             Value="{x:Static local:VideoStatus.NotReady}">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </local:PositionSlider.Triggers>
+                </local:PositionSlider>
+            </Grid>
+
+        </RelativeLayout>
+
+        <StackLayout Grid.Row="3" Padding="2">
+            <Grid VerticalOptions="FillAndExpand" ColumnSpacing="30" Padding="15,0,15,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid x:Name="DeleteGrid" BackgroundColor="Transparent" Grid.Column="0" HorizontalOptions="FillAndExpand">
+                    <Image Source="btnsmall1.png" Aspect="Fill"/>
+                    <Button Text="Reiniciar" Clicked="DeletePosiciones" Style="{StaticResource typetwoButton}" x:Name="btnDeletepuntos"/>
+                </Grid>
+                <Grid x:Name="AnclajeGrid" BackgroundColor="Transparent" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Image Source="btnsmall1.png" Aspect="Fill"/>
+                    <Button Text="Siguiente" Clicked="SetAnclaje" Style="{StaticResource typetwoButton}" x:Name="btnAnclaje"/>
+                </Grid>
+                <Grid x:Name="InicioGrid" BackgroundColor="Transparent" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Image Source="btnsmall1.png" Aspect="Fill"/>
+                    <Button Text="Siguiente" Clicked="SetInicio" Style="{StaticResource typetwoButton}" x:Name="btnInicio"/>
+                </Grid>
+                <Grid x:Name="ResultadosGrid" BackgroundColor="Transparent" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Image Source="btnsmall1.png" Aspect="Fill"/>
+                    <Button Text="Resultados" Clicked="Resultados" Style="{StaticResource typetwoButton}" x:Name="btnResultados"/>
+                </Grid>
+                <Grid x:Name="GuardarpuntoGrid" BackgroundColor="Transparent" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Image Source="btnsmall1.png" Aspect="Fill"/>
+                    <Button Text="Guardar punto" Clicked="SavePoint" Style="{StaticResource typetwoButton}" x:Name="btnGuardar"/>
+                </Grid>
+                
+                
+            </Grid>
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

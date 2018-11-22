@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="kinematiclabs.Home">
+    <Grid Padding="0">
+
+        <Image Aspect="Fill" Source="back2.png"/>
+        
+        <Grid VerticalOptions="CenterAndExpand" Padding="25" RowSpacing="5" >
+            
+            <Grid.RowDefinitions>
+                <RowDefinition>
+                    <RowDefinition.Height>
+                        <OnPlatform x:TypeArguments="GridLength">
+                            <On Platform="Android" Value="20"/>
+                            <On Platform="iOS" Value="50"/>
+                        </OnPlatform>
+                    </RowDefinition.Height>
+                </RowDefinition>
+                <RowDefinition>
+                    <RowDefinition.Height>
+                        <OnPlatform x:TypeArguments="GridLength">
+                            <On Platform="Android" Value="170"/>
+                            <On Platform="iOS" Value="200"/>
+                        </OnPlatform>
+                    </RowDefinition.Height>
+                </RowDefinition>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
+            </Grid.RowDefinitions>
+                    
+            <Image Aspect="AspectFit" Source="logoK.png" Grid.Row="1"/>
+            
+            <Grid BackgroundColor="Transparent" Grid.Row="3" HorizontalOptions="FillAndExpand">
+                <Image Source="btnbig1.png" Aspect="Fill"/>
+                <Button Text="Cargar sujeto" Clicked="LoadFellowAction" Style="{StaticResource typeoneButton}" x:Name="loadbtn"/>
+            </Grid>
+
+            <Grid BackgroundColor="Transparent" Grid.Row="4" HorizontalOptions="FillAndExpand">
+                <Image Source="btnbig2.png" Aspect="Fill"/>
+                <Button Text="Crear sujeto" Clicked="AddFellowAction" Style="{StaticResource typeoneButton}" x:Name="addbtn"/>
+            </Grid>
+            
+            <Grid BackgroundColor="Transparent" Grid.Row="5" HorizontalOptions="FillAndExpand">
+                <Image Source="btnbig1.png" Aspect="Fill"/>
+                <Button Text="Ver tutorial" Clicked="TutorialAction" Style="{StaticResource typeoneButton}" x:Name="editbtn"/>
+            </Grid>
+            
+            <Grid BackgroundColor="Transparent" Grid.Row="6" HorizontalOptions="FillAndExpand">
+                <Image Source="btnbig2.png" Aspect="Fill"/>
+                <Button Text="Desconectar" Clicked="LogoutAction" Style="{StaticResource typeoneButton}" x:Name="logoutbtn"/>
+            </Grid>
+            
+        </Grid>
+        
+    </Grid>
+    
+</ContentPage>

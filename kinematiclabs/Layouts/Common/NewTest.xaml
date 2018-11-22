@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:kinematiclabs"
+             x:Class="kinematiclabs.NewTest">
+    <Grid Padding="0">
+
+        <Image Aspect="Fill" Source="back2.png"/>
+        
+        <Grid RowSpacing="15">
+            <Grid.Padding>
+                <OnPlatform x:TypeArguments ="Thickness">
+                    <On Platform="Android" Value="25,10,25,25"/>
+                    <On Platform="iOS" Value="25"/>
+                </OnPlatform>
+            </Grid.Padding>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0" HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                    
+                <Button Grid.Column="0" Text="&#xf053;" Style="{StaticResource userMenuBtn}" Clicked="BackAction">
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="32"/>
+                            <On Platform="iOS" Value="40"/>
+                        </OnPlatform>
+                    </Button.FontSize>
+                </Button>
+                    
+                <Label Grid.Column="1" Text="Nuevo Test" TextColor="White" FontSize="24" FontAttributes="Bold" x:Name="TitleLabel" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"/>
+                    
+                <Button Grid.Column="2" Text="&#xf015;" Style="{StaticResource userMenuBtn}" Clicked="HomeAction">
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="32"/>
+                            <On Platform="iOS" Value="40"/>
+                        </OnPlatform>
+                    </Button.FontSize>
+                </Button>
+            </Grid>
+            
+            <ScrollView Grid.Row="1">
+                <Grid RowSpacing="5" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="55" />
+                        <RowDefinition Height="55" />
+                    </Grid.RowDefinitions>
+
+                    <Label TextColor="Black" Text="Zona" Grid.Row="0" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                            
+                    <Grid BackgroundColor="Transparent" Grid.Row="1" HorizontalOptions="FillAndExpand">
+                        <Image Source="btnbig1.png" Aspect="Fill"/>
+                        <local:CustomPicker x:Name="zonePicker" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" TextColor="White"/>
+                    </Grid>
+                    
+                    <Label TextColor="Black" Text="Familia" Grid.Row="2" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                            
+                    <Grid BackgroundColor="Transparent" Grid.Row="3" HorizontalOptions="FillAndExpand">
+                        <Image Source="btnbig2.png" Aspect="Fill"/>
+                        <local:CustomPicker x:Name="familyPicker" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" TextColor="White"/>
+                    </Grid>
+                    
+                    <Label TextColor="Black" Text="Tipo de test" Grid.Row="4" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                            
+                    <Grid BackgroundColor="Transparent" Grid.Row="5" HorizontalOptions="FillAndExpand">
+                        <Image Source="btnbig1.png" Aspect="Fill"/>
+                        <local:CustomPicker x:Name="typePicker" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" TextColor="White"/>
+                    </Grid>
+                    
+                    <Label TextColor="Black" Text="Segmento a movilizar" Grid.Row="6" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                            
+                    <Grid BackgroundColor="Transparent" Grid.Row="7" HorizontalOptions="FillAndExpand">
+                        <Image Source="btnbig2.png" Aspect="Fill"/>
+                        <Label x:Name="segmentText" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" BackgroundColor="Transparent" TextColor="White"/>
+                        <local:CustomPicker x:Name="segmentPicker" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" TextColor="White"/>
+                    </Grid>
+                    
+                    <Label TextColor="Black" Text="Posición inicial" Grid.Row="8" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                    
+                    <Grid BackgroundColor="Transparent" Grid.Row="9" HorizontalOptions="FillAndExpand">
+                        <Image Source="btnbig1.png" Aspect="Fill"/>
+                        <Label x:Name="positionText" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" BackgroundColor="Transparent" TextColor="White"/>
+                    </Grid>
+                    
+                    <Grid Grid.Row="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="Peso (kg)" Style="{StaticResource labelsBlack}" Grid.Column="0"/>
+                        <Grid BackgroundColor="Transparent" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                            <Image Source="btnbig2.png" Aspect="Fill"/>
+                            <local:CustomPicker x:Name="weightPicker" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" TextColor="White"/>
+                        </Grid>
+                    </Grid>
+                    
+                    <Grid Grid.Row="11">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="Altura (cm)" Style="{StaticResource labelsBlack}" Grid.Column="0"/>
+                        <Grid BackgroundColor="Transparent" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                            <Image Source="btnbig1.png" Aspect="Fill"/>
+                            <local:CustomPicker x:Name="heightPicker" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" TextColor="White"/>
+                        </Grid>
+                    </Grid>
+                    
+                    <Grid Grid.Row="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="Carga (kg)" Style="{StaticResource labelsBlack}" Grid.Column="0"/>
+                        <Grid BackgroundColor="Transparent" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                            <Image Source="btnbig2.png" Aspect="Fill"/>
+                            <local:CustomPicker x:Name="chargePicker" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" TextColor="White"/>
+                        </Grid>
+                    </Grid>
+                    
+                    <Grid BackgroundColor="Transparent" Grid.Row="13" HorizontalOptions="FillAndExpand">
+                        <Image Source="btnbig1.png" Aspect="Fill"/>
+                        <Button Text="Ver demo" Clicked="DemoAction" Style="{StaticResource typeoneButton}" x:Name="demoBtn"/>
+                    </Grid>
+                                        
+                    <Grid BackgroundColor="Transparent" Grid.Row="14" HorizontalOptions="FillAndExpand">
+                        <Image Source="btnbig2.png" Aspect="Fill"/>
+                        <Button Text="Continuar" Clicked="NextAction" Style="{StaticResource typeoneButton}" x:Name="nextBtn"/>
+                    </Grid>
+
+                </Grid>  
+            </ScrollView>
+            
+            
+        </Grid>
+        
+        
+    </Grid>
+</ContentPage>
