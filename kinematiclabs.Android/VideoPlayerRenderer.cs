@@ -8,7 +8,6 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using kinematiclabs;
 using kinematiclabs.Droid;
-using Android.Media;
 
 [assembly: ExportRenderer(typeof(VideoPlayer),
                           typeof(VideoPlayerRenderer))]

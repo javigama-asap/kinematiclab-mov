@@ -57,7 +57,7 @@
         </Grid>
 
         <RelativeLayout BackgroundColor="White" Padding="0" x:Name="rlposiciones" Grid.Row="2">
-            <local:VideoPlayer x:Name="videoPlayer" AutoPlay="False" AreTransportControlsEnabled="true"
+            <local:VideoPlayer x:Name="videoPlayer" AutoPlay="False" AreTransportControlsEnabled="False"
                            RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=0}"
                            RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Constant=0}"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"

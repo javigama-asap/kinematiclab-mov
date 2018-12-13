@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Plugin.GoogleAnalytics;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 
 namespace kinematiclabs
 {
@@ -228,71 +230,98 @@ namespace kinematiclabs
             String apath = "";
             String laterality = "Ninguna";
 
-            await CrossMedia.Current.Initialize();
+            var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+            var photoStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Photos);
+            var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
+            var microStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Microphone);
 
-            var action = await DisplayActionSheet("Elige una opción", "Cancelar", null, "Grabar video", "Adjuntar video de la galería");
-
-            if (action == "Grabar video")
+            if (storageStatus != PermissionStatus.Granted || photoStatus != PermissionStatus.Granted
+               || cameraStatus != PermissionStatus.Granted || microStatus != PermissionStatus.Granted)
             {
-
-
-                if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
                 {
-                    await DisplayAlert("No Camera", ":( No camera available.", "OK");
-                    return;
+                    await DisplayAlert("Need location", "Gunna need that location", "OK");
+                }
+                var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Storage, Permission.Photos, Permission.Camera, Permission.Microphone });
+                storageStatus = results[Permission.Storage];
+                photoStatus = results[Permission.Photos];
+                cameraStatus = results[Permission.Camera];
+                microStatus = results[Permission.Microphone];
+            }
+
+            if (photoStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted)
+            {
+                await CrossMedia.Current.Initialize();
+
+                var action = await DisplayActionSheet("Elige una opción", "Cancelar", null, "Grabar video", "Adjuntar video de la galería");
+
+                if (action == "Grabar video")
+                {
+                    if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                    {
+                        await DisplayAlert("No Camera", ":( No camera available.", "OK");
+                        return;
+                    }
+
+                    if (cameraStatus == PermissionStatus.Granted && microStatus == PermissionStatus.Granted)
+                    {
+                        var file = await CrossMedia.Current.TakeVideoAsync(new StoreVideoOptions
+                        {
+                            Quality = VideoQuality.High,
+                            SaveToAlbum = true,
+                            Directory = "KiematicFiles"
+                        });
+
+                        if (file == null)
+                            return;
+
+                        apath = file.AlbumPath;
+
+                        path = file.Path;
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Atencìón", "Sin los permisos adecuados (Privacidad -> Cámara, Privacidad -> Micrófono) en tu dispositivo no podemos continuar con el test", "OK");
+                    }
+                }
+                else if (action == "Adjuntar video de la galería")
+                {
+                    MediaFile file = await CrossMedia.Current.PickVideoAsync();
+
+                    if (file == null)
+                        return;
+
+                    apath = file.AlbumPath;
+
+                    path = file.Path;
                 }
 
-                var file = await CrossMedia.Current.TakeVideoAsync(new StoreVideoOptions
+                if (segmentPicker.IsVisible)
                 {
-                    Quality = VideoQuality.High,
-                    SaveToAlbum = true,
-                    Directory = "KiematicFiles"
-                });
+                    laterality = segmentPicker.SelectedIndex == 0 ? "Derecha" : "Izquierda";
+                }
 
-                if (file == null)
-                    return;
-
-                apath = file.AlbumPath;
-
-                path = file.Path;
-            }
-            else if (action == "Adjuntar video de la galería")
-            {
-                MediaFile file = await CrossMedia.Current.PickVideoAsync();
-
-                if (file == null)
-                    return;
-
-                apath = file.AlbumPath;
-
-                path = file.Path;
-            }
-
-            if (segmentPicker.IsVisible)
-            {
-                laterality = segmentPicker.SelectedIndex == 0 ? "Derecha" : "Izquierda";
-            }
-
-            if (apath != "")
-            {
-                mynewtest = new TestClass
+                if (path != "")
                 {
-                    Height = heightPicker.Items[heightPicker.SelectedIndex],
-                    Weight = weightPicker.Items[weightPicker.SelectedIndex],
-                    Charge = chargePicker.Items[chargePicker.SelectedIndex],
-                    Fellow = fellowObj,
-                    Video = Device.RuntimePlatform == Device.iOS ? apath : path,
-                    TypeTest = mytypetest,
-                    Leftright = laterality
-                };
+                    mynewtest = new TestClass
+                    {
+                        Height = heightPicker.Items[heightPicker.SelectedIndex],
+                        Weight = weightPicker.Items[weightPicker.SelectedIndex],
+                        Charge = chargePicker.Items[chargePicker.SelectedIndex],
+                        Fellow = fellowObj,
+                        //Video = path,
+                        Video = Device.RuntimePlatform == Device.iOS ? apath : path,
+                        TypeTest = mytypetest,
+                        Leftright = laterality
+                    };
 
-                await Navigation.PushAsync(new VideoTest(mynewtest));
+                    await Navigation.PushAsync(new VideoTest(mynewtest));
+                }
             }
-            else if (action != "Cancelar")
+            else
             {
-                await Application.Current.MainPage.DisplayAlert("Atencìón", "Se ha producido un error al procesar su video", "OK");
+                await Application.Current.MainPage.DisplayAlert("Atencìón", "Sin los permisos adecuados (Privacidad -> Fotos) en tu dispositivo no podemos continuar con el test", "OK");
             }
-
         }
     }
 }

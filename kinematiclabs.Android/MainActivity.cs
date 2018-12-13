@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Plugin.GoogleAnalytics;
+using Plugin.CurrentActivity;
 
 namespace kinematiclabs.Droid
 {
@@ -27,6 +28,8 @@ namespace kinematiclabs.Droid
             GoogleAnalytics.Current.Config.AppName = "Kinematic Lab Mov App";
             GoogleAnalytics.Current.Config.AppVersion = "Android 1.0";
             GoogleAnalytics.Current.InitTracker();
+
+            CrossCurrentActivity.Current.Activity = this;
 
             LoadApplication(new App());
         }

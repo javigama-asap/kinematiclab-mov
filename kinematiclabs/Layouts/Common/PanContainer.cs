@@ -66,12 +66,15 @@ namespace kinematiclabs
 
                         var modulo_punto_inicio = Math.Sqrt(vector_inicio.X * vector_inicio.X + vector_inicio.Y * vector_inicio.Y);
 
-                        var cos = producto / (modulo_punto_inicio * modulo_punto);
+                        if (modulo_punto > 0 && modulo_punto_inicio > 0)
+                        {
+                            var cos = producto / (modulo_punto_inicio * modulo_punto);
 
-                        var angulo = Decimal.Round((decimal)(Math.Acos(cos) * 180 / Math.PI), 2);
-                        StackLayout mysl = Content as StackLayout;
-                        Label mytext = mysl.Children[1] as Label;
-                        mytext.Text = angulo + "º";
+                            var angulo = Decimal.Round((decimal)(Math.Acos(cos) * 180 / Math.PI), 1);
+                            StackLayout mysl = Content as StackLayout;
+                            Label mytext = mysl.Children[1] as Label;
+                            mytext.Text = angulo + "º";
+                        }
                     }
 
                     break;

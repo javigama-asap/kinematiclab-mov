@@ -20,7 +20,7 @@
 	<key>MinimumOSVersion</key>
 	<string>10.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>Kinematic Lab Mov</string>
+	<string>KLab&#x2007;Mov</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.kinematiclab.mov</string>
 	<key>UILaunchStoryboardName</key>
@@ -49,8 +49,8 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>Kinematic Lab Mov solamente utilizará tus datos para fines científicos</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.9.2</string>
+	<string>0.9.3</string>
 	<key>CFBundleVersion</key>
-	<string>0.9.2</string>
+	<string>0.9.3</string>
 </dict>
 </plist>
