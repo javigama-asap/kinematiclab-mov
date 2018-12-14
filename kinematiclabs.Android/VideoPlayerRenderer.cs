@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using kinematiclabs;
 using kinematiclabs.Droid;
+using Android.Util;
 
 [assembly: ExportRenderer(typeof(VideoPlayer),
                           typeof(VideoPlayerRenderer))]
@@ -107,26 +108,36 @@ namespace kinematiclabs.Droid
             }
             else if (e.PropertyName == VideoPlayer.PositionProperty.PropertyName)
             {
-
-                var zz = Element.Position.TotalMilliseconds - videoView.CurrentPosition;
-
-                if (Math.Abs(zz) >= 30)
-                {
-                    //((IElementController)Element).SetValueFromRenderer(VideoPlayer.PositionProperty, TimeSpan.FromMilliseconds(videoView.CurrentPosition + zz));
-                    int xc = (int)Element.Position.TotalMilliseconds;
-                    videoView.SeekTo(xc);
-
-                }
-                else if (Element.Position.TotalMilliseconds >= videoView.Duration)
-                {
-                    videoView.SeekTo(videoView.Duration);
-                }
-                else if (Element.Position.TotalMilliseconds <= 0)
-                {
-                    videoView.SeekTo(0);
-                }
-                ((IElementController)Element).SetValueFromRenderer(VideoPlayer.PositionProperty, TimeSpan.FromMilliseconds(Element.Position.TotalMilliseconds));
+                OnPositionChanged();
             }
+        }
+
+        private void OnPositionChanged()
+        {
+            int? millisToSeek = null;
+            var millisDifferent = Math.Abs(Element.Position.TotalMilliseconds - videoView.CurrentPosition);
+
+            if (millisDifferent >= 30)
+            {
+                millisToSeek = (int)Element.Position.TotalMilliseconds;
+            }
+            else if (Element.Position.TotalMilliseconds >= videoView.Duration)
+            {
+                millisToSeek = videoView.Duration;
+            }
+            else if (Element.Position.TotalMilliseconds <= 0)
+            {
+                millisToSeek = 0;
+            }
+
+            if (millisToSeek != null && millisToSeek.HasValue)
+            {
+                Log.Debug("Itequia-log", $"Millis to seek {millisToSeek.Value} of total {(int)Element.Position.TotalMilliseconds}");
+                videoView.SeekTo(millisToSeek.Value);
+            }
+
+            TimeSpan timeSpan = TimeSpan.FromMilliseconds(Element.Position.TotalMilliseconds);
+            ((IElementController)Element).SetValueFromRenderer(VideoPlayer.PositionProperty, timeSpan);
         }
 
         void SetAreTransportControlsEnabled()
@@ -137,8 +148,6 @@ namespace kinematiclabs.Droid
                 mediaController.SetMediaPlayer(videoView);
                 videoView.SetMediaController(mediaController);
 
-                mediaController.NextClick += MediaController_NextClick;
-                mediaController.PreviousClick += MediaController_PreviousClick;
                 mediaController.Show();
             }
             else
@@ -151,20 +160,6 @@ namespace kinematiclabs.Droid
                     mediaController = null;
                 }
             }
-        }
-
-        private void MediaController_PreviousClick(object sender, EventArgs e)
-        {
-            if (TimeSpan.FromMilliseconds(videoView.CurrentPosition).TotalMilliseconds > 30)
-                videoView.SeekTo(videoView.CurrentPosition - 30);
-            //((IElementController)Element).SetValueFromRenderer(VideoPlayer.PositionProperty, TimeSpan.FromMilliseconds(videoView.CurrentPosition - 100));
-        }
-
-        private void MediaController_NextClick(object sender, EventArgs e)
-        {
-            if (TimeSpan.FromMilliseconds(videoView.CurrentPosition).TotalMilliseconds < videoView.Duration - 30)
-                videoView.SeekTo(videoView.CurrentPosition + 30);
-                //((IElementController)Element).SetValueFromRenderer(VideoPlayer.PositionProperty, TimeSpan.FromMilliseconds(videoView.CurrentPosition + 100));
         }
 
         void SetSource()
@@ -237,4 +232,3 @@ namespace kinematiclabs.Droid
     }
 
 }
- 
