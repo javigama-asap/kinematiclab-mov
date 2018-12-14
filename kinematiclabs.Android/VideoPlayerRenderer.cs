@@ -152,7 +152,7 @@ namespace kinematiclabs.Droid
             {
                 if (Element.AreTransportControlsEnabled)
                 {
-                    mediaController = new MediaController(Context, true);
+                    mediaController = new MediaController(Context, false);
                     mediaController.SetMediaPlayer(videoView);
 
                     videoView.SetMediaController(mediaController);
