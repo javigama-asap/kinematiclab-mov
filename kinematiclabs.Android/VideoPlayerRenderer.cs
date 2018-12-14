@@ -9,14 +9,19 @@ using Xamarin.Forms.Platform.Android;
 using kinematiclabs;
 using kinematiclabs.Droid;
 using Android.Util;
+using static Android.Media.MediaPlayer;
+using Android.Media;
+using Android.Runtime;
 
 [assembly: ExportRenderer(typeof(VideoPlayer),
                           typeof(VideoPlayerRenderer))]
 
 namespace kinematiclabs.Droid
 {
-    public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, ARelativeLayout>
+    public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, ARelativeLayout>, IOnErrorListener
     {
+        private const string LogTag = "Itequia";
+
         VideoView videoView;
         MediaController mediaController;    // Used to display transport controls
         bool isPrepared;
@@ -36,6 +41,7 @@ namespace kinematiclabs.Droid
                     // Save the VideoView for future reference
                     videoView = new VideoView(Context);
 
+                    videoView.SetOnErrorListener(this);
                     videoView.CanSeekBackward();
                     videoView.CanSeekForward();
                     // Put the VideoView in a RelativeLayout
@@ -132,7 +138,7 @@ namespace kinematiclabs.Droid
 
             if (millisToSeek != null && millisToSeek.HasValue)
             {
-                Log.Debug("Itequia-log", $"Millis to seek {millisToSeek.Value} of total {(int)Element.Position.TotalMilliseconds}");
+                Log.Debug(LogTag, $"Millis to seek {millisToSeek.Value} of total {(int)Element.Duration.TotalMilliseconds}");
                 videoView.SeekTo(millisToSeek.Value);
             }
 
@@ -142,23 +148,31 @@ namespace kinematiclabs.Droid
 
         void SetAreTransportControlsEnabled()
         {
-            if (Element.AreTransportControlsEnabled)
+            try
             {
-                mediaController = new MediaController(Context, false);
-                mediaController.SetMediaPlayer(videoView);
-                videoView.SetMediaController(mediaController);
-
-                mediaController.Show();
-            }
-            else
-            {
-                videoView.SetMediaController(null);
-
-                if (mediaController != null)
+                if (Element.AreTransportControlsEnabled)
                 {
-                    mediaController.SetMediaPlayer(null);
-                    mediaController = null;
+                    mediaController = new MediaController(Context, true);
+                    mediaController.SetMediaPlayer(videoView);
+
+                    videoView.SetMediaController(mediaController);
+
+                    mediaController.Show();
                 }
+                else
+                {
+                    videoView.SetMediaController(null);
+
+                    if (mediaController != null)
+                    {
+                        mediaController.SetMediaPlayer(null);
+                        mediaController = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(LogTag, $"{ex.Message}\n{ex.StackTrace}");
             }
         }
 
@@ -228,6 +242,13 @@ namespace kinematiclabs.Droid
         void OnStopRequested(object sender, EventArgs args)
         {
             videoView.StopPlayback();
+        }
+
+        public bool OnError(MediaPlayer mp, [GeneratedEnum] MediaError what, int extra)
+        {
+            Log.Error(LogTag, $"There was an error with MediaPlayer: {what}");
+
+            return true;
         }
     }
 
