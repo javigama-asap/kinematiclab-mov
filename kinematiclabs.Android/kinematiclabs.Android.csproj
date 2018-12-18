@@ -147,6 +147,10 @@
       <Project>{968AC941-B9C4-4187-AC28-5FA2BC90A417}</Project>
       <Name>kinematiclabs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MediaPlayerExtendedBinding\MediaPlayerExtendedBinding.csproj">
+      <Project>{0B866DD5-F3E3-4220-86F3-786F33E368B1}</Project>
+      <Name>MediaPlayerExtendedBinding</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\FontAwesome.otf" />
