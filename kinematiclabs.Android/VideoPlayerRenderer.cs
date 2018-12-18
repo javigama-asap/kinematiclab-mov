@@ -1,36 +1,39 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
+using System.Threading.Tasks;
 using Android.Content;
+using Android.Media;
+using Android.OS;
+using Android.Runtime;
+using Android.Util;
 using Android.Widget;
-using ARelativeLayout = Android.Widget.RelativeLayout;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
 using kinematiclabs;
 using kinematiclabs.Droid;
-using Android.Util;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 using static Android.Media.MediaPlayer;
-using Android.Media;
-using Android.Runtime;
+using ARelativeLayout = Android.Widget.RelativeLayout;
 
 [assembly: ExportRenderer(typeof(VideoPlayer),
                           typeof(VideoPlayerRenderer))]
 
 namespace kinematiclabs.Droid
 {
-    public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, ARelativeLayout>, IOnErrorListener
+    public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, ARelativeLayout>, IOnErrorListener, IOnPreparedListener
     {
         private const string LogTag = "Itequia";
 
         VideoView videoView;
         MediaController mediaController;    // Used to display transport controls
         bool isPrepared;
+        private MediaMetadataRetriever _retriever;
+        private MediaPlayer _mediaPlayer;
 
         public VideoPlayerRenderer(Context context) : base(context)
         {
         }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<VideoPlayer> e)
+        protected override async void OnElementChanged(ElementChangedEventArgs<VideoPlayer> e)
         {
             base.OnElementChanged(e);
 
@@ -42,6 +45,8 @@ namespace kinematiclabs.Droid
                     videoView = new VideoView(Context);
 
                     videoView.SetOnErrorListener(this);
+                    videoView.SetOnPreparedListener(this);
+
                     videoView.CanSeekBackward();
                     videoView.CanSeekForward();
                     // Put the VideoView in a RelativeLayout
@@ -54,15 +59,12 @@ namespace kinematiclabs.Droid
                     layoutParams.AddRule(LayoutRules.CenterInParent);
                     videoView.LayoutParameters = layoutParams;
 
-                    // Handle a VideoView event
-                    videoView.Prepared += OnVideoViewPrepared;
-
                     SetNativeControl(relativeLayout);
 
                 }
 
                 SetAreTransportControlsEnabled();
-                SetSource();
+                await SetSource();
 
                 e.NewElement.UpdateStatus += OnUpdateStatus;
                 e.NewElement.PlayRequested += OnPlayRequested;
@@ -82,10 +84,6 @@ namespace kinematiclabs.Droid
 
         protected override void Dispose(bool disposing)
         {
-            if (Control != null && videoView != null)
-            {
-                videoView.Prepared -= OnVideoViewPrepared;
-            }
             if (Element != null)
             {
                 Element.UpdateStatus -= OnUpdateStatus;
@@ -94,13 +92,13 @@ namespace kinematiclabs.Droid
             base.Dispose(disposing);
         }
 
-        void OnVideoViewPrepared(object sender, EventArgs args)
+        void OnVideoViewPrepared(MediaPlayer mediaPlayer, EventArgs args)
         {
             isPrepared = true;
             ((IVideoPlayerController)Element).Duration = TimeSpan.FromMilliseconds(videoView.Duration);
         }
 
-        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected override async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
@@ -110,7 +108,7 @@ namespace kinematiclabs.Droid
             }
             else if (e.PropertyName == VideoPlayer.SourceProperty.PropertyName)
             {
-                SetSource();
+                await SetSource();
             }
             else if (e.PropertyName == VideoPlayer.PositionProperty.PropertyName)
             {
@@ -121,7 +119,7 @@ namespace kinematiclabs.Droid
         private void OnPositionChanged()
         {
             int? millisToSeek = null;
-            var millisDifferent = Math.Abs(Element.Position.TotalMilliseconds - videoView.CurrentPosition);
+            var millisDifferent = System.Math.Abs(Element.Position.TotalMilliseconds - videoView.CurrentPosition);
 
             if (millisDifferent >= 30)
             {
@@ -136,10 +134,10 @@ namespace kinematiclabs.Droid
                 millisToSeek = 0;
             }
 
-            if (millisToSeek != null && millisToSeek.HasValue)
+            if (millisToSeek != null && millisToSeek.HasValue && millisToSeek != -1)
             {
                 Log.Debug(LogTag, $"Millis to seek {millisToSeek.Value} of total {(int)Element.Duration.TotalMilliseconds}");
-                videoView.SeekTo(millisToSeek.Value);
+                SeekTo(millisToSeek.Value);
             }
 
             TimeSpan timeSpan = TimeSpan.FromMilliseconds(Element.Position.TotalMilliseconds);
@@ -156,7 +154,6 @@ namespace kinematiclabs.Droid
                     mediaController.SetMediaPlayer(videoView);
 
                     videoView.SetMediaController(mediaController);
-
                     mediaController.Show();
                 }
                 else
@@ -170,24 +167,25 @@ namespace kinematiclabs.Droid
                     }
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 Log.Error(LogTag, $"{ex.Message}\n{ex.StackTrace}");
             }
         }
 
-        void SetSource()
+        async Task SetSource()
         {
             isPrepared = false;
-            bool hasSetSource = false;
+            var hasSetSource = false;
+
+            var filePath = (Element.Source as FileVideoSource).File;
 
             if (Element.Source is FileVideoSource)
             {
-                string filename = (Element.Source as FileVideoSource).File;
 
-                if (!String.IsNullOrWhiteSpace(filename))
+                if (!string.IsNullOrWhiteSpace(filePath))
                 {
-                    videoView.SetVideoPath(filename);
+                    videoView.SetVideoPath(filePath);
                     hasSetSource = true;
                 }
             }
@@ -196,11 +194,12 @@ namespace kinematiclabs.Droid
                 string package = Context.PackageName;
                 string path = (Element.Source as ResourceVideoSource).Path;
 
-                if (!String.IsNullOrWhiteSpace(path))
+                if (!string.IsNullOrWhiteSpace(path))
                 {
-                    string filename = Path.GetFileNameWithoutExtension(path).ToLowerInvariant();
+                    string filename = System.IO.Path.GetFileNameWithoutExtension(path).ToLowerInvariant();
                     string uri = "android.resource://" + package + "/raw/" + filename;
                     videoView.SetVideoURI(Android.Net.Uri.Parse(uri));
+
                     hasSetSource = true;
                 }
             }
@@ -208,6 +207,12 @@ namespace kinematiclabs.Droid
             if (hasSetSource && Element.AutoPlay)
             {
                 videoView.Start();
+            }
+
+            if (hasSetSource)
+            {
+                _retriever = new MediaMetadataRetriever();
+                await _retriever.SetDataSourceAsync(filePath);
             }
         }
 
@@ -250,6 +255,27 @@ namespace kinematiclabs.Droid
 
             return true;
         }
-    }
 
+        public void SeekTo(double millisToSeek)
+        {
+            int convertedMillis = (int)Math.Abs(millisToSeek);
+
+            Log.Debug(LogTag, $"Seeking {convertedMillis} millis.");
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            {
+                _mediaPlayer.SeekTo(convertedMillis, MediaPlayerSeekMode.Closest);
+            }
+            else
+            {
+                Log.Debug(LogTag, "Not supporting seek with millis.");
+            }
+        }
+
+        public void OnPrepared(MediaPlayer mp)
+        {
+            OnVideoViewPrepared(mp, EventArgs.Empty);
+            _mediaPlayer = mp;
+        }
+    }
 }
