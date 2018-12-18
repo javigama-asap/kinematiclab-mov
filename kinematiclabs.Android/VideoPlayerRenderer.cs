@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using Android.Content;
 using Android.Util;
 using Itequia.Controls.MediaPlayer;
@@ -31,7 +30,7 @@ namespace kinematiclabs.Droid
         {
         }
 
-        protected override async void OnElementChanged(ElementChangedEventArgs<VideoPlayer> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<VideoPlayer> e)
         {
             base.OnElementChanged(e);
 
@@ -62,7 +61,7 @@ namespace kinematiclabs.Droid
                 }
 
                 SetAreTransportControlsEnabled();
-                await SetSource();
+                SetSource();
 
                 e.NewElement.UpdateStatus += OnUpdateStatus;
                 e.NewElement.PlayRequested += OnPlayRequested;
@@ -96,7 +95,7 @@ namespace kinematiclabs.Droid
             ((IVideoPlayerController)Element).Duration = TimeSpan.FromMilliseconds(videoView.Duration);
         }
 
-        protected override async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
@@ -106,7 +105,7 @@ namespace kinematiclabs.Droid
             }
             else if (e.PropertyName == VideoPlayer.SourceProperty.PropertyName)
             {
-                await SetSource();
+                SetSource();
             }
             else if (e.PropertyName == VideoPlayer.PositionProperty.PropertyName)
             {
@@ -167,7 +166,7 @@ namespace kinematiclabs.Droid
             }
         }
 
-        async Task SetSource()
+        private void SetSource()
         {
             isPrepared = false;
             var hasSetSource = false;
