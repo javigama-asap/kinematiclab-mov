@@ -2,17 +2,15 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Android.Content;
-using Android.Media;
-using Android.OS;
-using Android.Runtime;
 using Android.Util;
-using Android.Widget;
+using Itequia.Controls.MediaPlayer;
 using kinematiclabs;
 using kinematiclabs.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using static Android.Media.MediaPlayer;
+using static Itequia.Controls.MediaPlayer.MediaPlayer;
 using ARelativeLayout = Android.Widget.RelativeLayout;
+using MediaController = Android.Widget.MediaController;
 
 [assembly: ExportRenderer(typeof(VideoPlayer),
                           typeof(VideoPlayerRenderer))]
@@ -25,8 +23,8 @@ namespace kinematiclabs.Droid
 
         VideoView videoView;
         MediaController mediaController;    // Used to display transport controls
+        IMediaSource mediaSource;
         bool isPrepared;
-        private MediaMetadataRetriever _retriever;
         private MediaPlayer _mediaPlayer;
 
         public VideoPlayerRenderer(Context context) : base(context)
@@ -56,7 +54,7 @@ namespace kinematiclabs.Droid
                     // Center the VideoView in the RelativeLayout
                     ARelativeLayout.LayoutParams layoutParams =
                         new ARelativeLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
-                    layoutParams.AddRule(LayoutRules.CenterInParent);
+                    layoutParams.AddRule(Android.Widget.LayoutRules.CenterInParent);
                     videoView.LayoutParameters = layoutParams;
 
                     SetNativeControl(relativeLayout);
@@ -152,16 +150,12 @@ namespace kinematiclabs.Droid
                 {
                     mediaController = new MediaController(Context, false);
                     mediaController.SetMediaPlayer(videoView);
-
-                    videoView.SetMediaController(mediaController);
+                    mediaController.Enabled = true;
                     mediaController.Show();
                 }
                 else
                 {
-                    videoView.SetMediaController(null);
-
-                    if (mediaController != null)
-                    {
+                    if (mediaController != null){
                         mediaController.SetMediaPlayer(null);
                         mediaController = null;
                     }
@@ -185,7 +179,8 @@ namespace kinematiclabs.Droid
 
                 if (!string.IsNullOrWhiteSpace(filePath))
                 {
-                    videoView.SetVideoPath(filePath);
+                    mediaSource = new FileSource(new Java.IO.File(filePath));
+                    videoView.SetVideoSource(mediaSource);
                     hasSetSource = true;
                 }
             }
@@ -198,7 +193,7 @@ namespace kinematiclabs.Droid
                 {
                     string filename = System.IO.Path.GetFileNameWithoutExtension(path).ToLowerInvariant();
                     string uri = "android.resource://" + package + "/raw/" + filename;
-                    videoView.SetVideoURI(Android.Net.Uri.Parse(uri));
+                    mediaSource = new UriSource(Context, Android.Net.Uri.Parse(uri));
 
                     hasSetSource = true;
                 }
@@ -207,12 +202,6 @@ namespace kinematiclabs.Droid
             if (hasSetSource && Element.AutoPlay)
             {
                 videoView.Start();
-            }
-
-            if (hasSetSource)
-            {
-                _retriever = new MediaMetadataRetriever();
-                await _retriever.SetDataSourceAsync(filePath);
             }
         }
 
@@ -249,33 +238,27 @@ namespace kinematiclabs.Droid
             videoView.StopPlayback();
         }
 
-        public bool OnError(MediaPlayer mp, [GeneratedEnum] MediaError what, int extra)
-        {
-            Log.Error(LogTag, $"There was an error with MediaPlayer: {what}");
-
-            return true;
-        }
-
         public void SeekTo(double millisToSeek)
         {
             int convertedMillis = (int)Math.Abs(millisToSeek);
 
             Log.Debug(LogTag, $"Seeking {convertedMillis} millis.");
 
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-            {
-                _mediaPlayer.SeekTo(convertedMillis, MediaPlayerSeekMode.Closest);
-            }
-            else
-            {
-                Log.Debug(LogTag, "Not supporting seek with millis.");
-            }
+            _mediaPlayer.SeekTo(convertedMillis);
         }
 
         public void OnPrepared(MediaPlayer mp)
         {
             OnVideoViewPrepared(mp, EventArgs.Empty);
             _mediaPlayer = mp;
+            _mediaPlayer.SetSeekMode(SeekMode.Precise);
+        }
+
+        public bool OnError(MediaPlayer mp, int p1, int p2)
+        {
+            Log.Error(LogTag, $"There was an error with MediaPlayer");
+
+            return true;
         }
     }
 }
