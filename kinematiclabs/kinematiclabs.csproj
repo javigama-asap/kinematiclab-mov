@@ -17,8 +17,8 @@
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="OxyPlot.Xamarin.Forms" Version="1.0.0" />
     <PackageReference Include="ksemenenko.GoogleAnalytics" Version="1.0.3.2" />
-    <PackageReference Include="Xamarin.Auth" Version="1.6.0.2" />
     <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
+    <PackageReference Include="Xamarin.Auth" Version="1.6.0.4" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Classes\" />

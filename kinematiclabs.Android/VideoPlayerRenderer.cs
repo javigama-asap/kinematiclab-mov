@@ -118,7 +118,7 @@ namespace kinematiclabs.Droid
             int? millisToSeek = null;
             var millisDifferent = System.Math.Abs(Element.Position.TotalMilliseconds - videoView.CurrentPosition);
 
-            if (millisDifferent >= 30)
+            if (millisDifferent >= 10)
             {
                 millisToSeek = (int)Element.Position.TotalMilliseconds;
             }
@@ -217,8 +217,12 @@ namespace kinematiclabs.Droid
             ((IVideoPlayerController)Element).Status = status;
 
             // Set Position property
-            TimeSpan timeSpan = TimeSpan.FromMilliseconds(videoView.CurrentPosition);
-            ((IElementController)Element).SetValueFromRenderer(VideoPlayer.PositionProperty, timeSpan);
+            if (status == VideoStatus.Playing)
+            {
+                TimeSpan timeSpan = TimeSpan.FromMilliseconds(videoView.CurrentPosition);
+                ((IElementController)Element).SetValueFromRenderer(VideoPlayer.PositionProperty, timeSpan);
+            }
+
         }
 
         // Event handlers to implement methods

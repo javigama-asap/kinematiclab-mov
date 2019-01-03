@@ -109,9 +109,9 @@ namespace kinematiclabs
 
         private void PreviousClicked(object sender, EventArgs e)
         {
-            if (videoPlayer.Position.TotalMilliseconds >= 30)
+            if (videoPlayer.Position.TotalMilliseconds >= 33)
             {
-                videoPlayer.Position = TimeSpan.FromMilliseconds(videoPlayer.Position.TotalMilliseconds - 30);
+                videoPlayer.Position = TimeSpan.FromMilliseconds(videoPlayer.Position.TotalMilliseconds - 33);
                 //positionSlider.Value = (videoPlayer.Position.TotalMilliseconds - 30) / 1000;
             }
 
@@ -124,9 +124,9 @@ namespace kinematiclabs
 
         private void NextClicked(object sender, EventArgs e)
         {
-            if (videoPlayer.Position.TotalMilliseconds <= videoPlayer.Duration.TotalMilliseconds - 30)
+            if (videoPlayer.Position.TotalMilliseconds <= videoPlayer.Duration.TotalMilliseconds - 33)
             {
-                videoPlayer.Position = TimeSpan.FromMilliseconds(videoPlayer.Position.TotalMilliseconds + 30);
+                videoPlayer.Position = TimeSpan.FromMilliseconds(videoPlayer.Position.TotalMilliseconds + 33);
                 //positionSlider.Value = (videoPlayer.Position.TotalMilliseconds + 30) / 1000;
             }
             else
